@@ -28,3 +28,12 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+/* Tailwind CSS custom class */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}

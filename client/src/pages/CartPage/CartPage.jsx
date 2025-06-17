@@ -13,6 +13,8 @@ import nonVeg from "../../assets/non-veg.svg";
 import { FaCaretRight } from "react-icons/fa";
 import emptyCart from "../../assets/empty-cart.webp";
 import { Spinner, useToast } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
+
 
 const CartPage = () => {
   const [runGetCartThunk, _, fetchingCartLoader] = useThunk(getCartThunk);
@@ -110,16 +112,24 @@ const CartPage = () => {
     0
   );
 
-  const placeOrder = () => {
-    const argument = { userId, token: localStorage.getItem("token") };
-    runClearCartThunk(argument);
-    toast({
-      title: "Order placed successfully!",
-      status: "success",
-      duration: 4000,
-      isClosable: true,
-    });
-  };
+const navigate = useNavigate();
+
+const placeOrder = () => {
+  const argument = { userId, token: localStorage.getItem("token") };
+  runClearCartThunk(argument);
+  toast({
+    title: "Order placed successfully!",
+    status: "success",
+    duration: 2000,
+    isClosable: true,
+  });
+
+  // Navigate to payment page after small delay
+  setTimeout(() => {
+navigate(`/explore/payment/${userId}`);
+  }, 1500);
+};
+
 
   return (
     <main className="mx-20 max-[500px]:mx-7 py-4 mt-4 border-t flex flex-col items-center">
@@ -156,6 +166,7 @@ const CartPage = () => {
                 <p>Place Order</p>
                 <FaCaretRight />
               </section>
+             
             </div>
           </div>
         </section>

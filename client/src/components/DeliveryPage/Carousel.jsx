@@ -16,31 +16,25 @@ const Carousel = ({ dataArray }) => {
     }
   };
 
+  const handleBackArrow = () => {
+    setPointers((prev) => ({
+      left: Math.max(0, prev.left - 1),
+      right: Math.max(5, prev.right - 1),
+    }));
+  };
+
+  const handleForwardArrow = () => {
+    setPointers((prev) => ({
+      left: Math.min(dataArray.length - 6, prev.left + 1),
+      right: Math.min(dataArray.length - 1, prev.right + 1),
+    }));
+  };
+
   const renderedCarousel = dataArray.map((food, index) => {
     if (index >= pointers.left && index <= pointers.right) {
-      if (food.type === "brand") {
-        return (
-          <Link
-            to={`/explore/${food._id}`}
-            key={index}
-            id={food.name}
-            className="flex flex-col items-center gap-2 w-60 cursor-pointer"
-            onClick={() => handleCarouselClick(food)}
-          >
-            <div className="rounded-full">
-              <img
-                src={food.img}
-                alt={food.name}
-                className="rounded-full w-60 shadow-md"
-              />
-            </div>
-            <span className="text-xl text-center font-medium">{food.name}</span>
-          </Link>
-        );
-      }
-      return (
+      const content = (
         <div
-          key={index}
+          key={food._id || food.name}
           id={food.name}
           className="flex flex-col items-center gap-2 w-60 cursor-pointer"
           onClick={() => handleCarouselClick(food)}
@@ -55,36 +49,41 @@ const Carousel = ({ dataArray }) => {
           <span className="text-xl text-center font-medium">{food.name}</span>
         </div>
       );
+
+      return food.type === "brand" ? (
+        <Link
+          to={`/explore/${food._id}`}
+          key={food._id || food.name}
+          id={food.name}
+          className="flex flex-col items-center gap-2 w-60 cursor-pointer"
+          onClick={() => handleCarouselClick(food)}
+        >
+          {content.props.children}
+        </Link>
+      ) : (
+        content
+      );
     }
+    return null;
   });
 
-  const handleBackArrow = () => {
-    setPointers((prevPointers) => ({
-      left: prevPointers.left - 1,
-      right: prevPointers.right - 1,
-    }));
-  };
-
-  const handleForwardArrow = () => {
-    setPointers((prevPointers) => ({
-      left: prevPointers.left + 1,
-      right: prevPointers.right + 1,
-    }));
-  };
-
   return (
-    <div className="flex gap-10 relative max-[500px]:hidden">
-      {renderedCarousel}
+    <div className="relative">
+      <div className="flex gap-10 max-[500px]:overflow-x-scroll max-[500px]:no-scrollbar">
+        {renderedCarousel}
+      </div>
+
       {pointers.left > 0 && (
         <IoIosArrowBack
           onClick={handleBackArrow}
-          className="absolute -left-4 top-[60px] bg-white p-2 text-4xl rounded-full shadow-xl hover:bg-gray-100 cursor-pointer"
+          className="absolute -left-4 top-[60px] bg-white p-2 text-4xl rounded-full shadow-xl hover:bg-gray-100 cursor-pointer max-[500px]:hidden"
         />
       )}
+
       {pointers.right < dataArray.length - 1 && (
         <IoIosArrowForward
           onClick={handleForwardArrow}
-          className="absolute -right-4 top-[60px] bg-white p-2 text-4xl rounded-full shadow-xl hover:bg-gray-100 cursor-pointer"
+          className="absolute -right-4 top-[60px] bg-white p-2 text-4xl rounded-full shadow-xl hover:bg-gray-100 cursor-pointer max-[500px]:hidden"
         />
       )}
     </div>

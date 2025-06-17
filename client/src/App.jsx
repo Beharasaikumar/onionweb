@@ -9,6 +9,7 @@ import NightLifePage from "./pages/NightLifePage";
 import DeliveryRestaurantPage from "./pages/DeliveryRestaurant";
 import SecondaryLayout from "./components/SecondaryLayout";
 import CartPage from "./pages/CartPage/CartPage";
+import PaymentPage from './pages/CartPage/PaymentPage';
 import BookmarkPage from "./pages/BookmarkPage/BookmarkPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import { useSelector } from "react-redux";
@@ -50,6 +51,7 @@ const App = () => {
           </Route>
           <Route path="/explore/:cafeId" element={<DeliveryRestaurantPage />} />
           <Route path="cart/:userId" element={<CartPage />} />
+<Route path="payment/:userId" element={<PaymentPage />} />
           <Route path="bookmarks" element={<BookmarkPage />} />
           <Route path="profile" element={<ProfilePage />} />
         </Route>

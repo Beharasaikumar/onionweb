@@ -13,11 +13,8 @@ const DeliveryData = () => {
     (state) => state.delivery
   );
   const filters = useSelector((state) => state.filters);
-  const { filterCount, cuisineSelected } = useSelector(
-    (state) => state.filters
-  );
-  const [runFetchAllDeliveryThunk, _, isLoading, error] =
-    useThunk(fetchAllDelivery);
+  const { filterCount } = filters;
+  const [runFetchAllDeliveryThunk, , isLoading] = useThunk(fetchAllDelivery);
 
   useEffect(() => {
     if (filters.filterCount) {
@@ -25,32 +22,28 @@ const DeliveryData = () => {
     } else {
       runFetchAllDeliveryThunk();
     }
-  }, [filters]);
+  }, [filters, dispatch, runFetchAllDeliveryThunk]);
 
   const deliveryRestaurantsJsx =
     filteredRestaurants.length === 0 && filterCount === 0 ? (
-      allDeliveryRestaurants.map((deliveryRestaurant) => {
-        return (
-          <RestaurantCard
-            key={deliveryRestaurant._id}
-            data={deliveryRestaurant}
-          />
-        );
-      })
+      allDeliveryRestaurants.map((deliveryRestaurant) => (
+        <RestaurantCard
+          key={deliveryRestaurant._id}
+          data={deliveryRestaurant}
+        />
+      ))
     ) : filteredRestaurants.length === 0 && filterCount > 0 ? (
       <div>
         <p>No such restaurants/cafes available.</p>
         <p>Try applying different filters.</p>
       </div>
     ) : (
-      filteredRestaurants.map((deliveryRestaurant) => {
-        return (
-          <RestaurantCard
-            key={deliveryRestaurant._id}
-            data={deliveryRestaurant}
-          />
-        );
-      })
+      filteredRestaurants.map((deliveryRestaurant) => (
+        <RestaurantCard
+          key={deliveryRestaurant._id}
+          data={deliveryRestaurant}
+        />
+      ))
     );
 
   return (
