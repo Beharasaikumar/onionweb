@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
 import {
   fetchAllDelivery,
@@ -15,9 +15,14 @@ import { Spinner, useToast } from "@chakra-ui/react";
 import { BsBookmarkPlus, BsBookmarkCheckFill } from "react-icons/bs";
 import FoodCard from "../../components/DeliveryRestaurant/FoodCard";
 
+// Optional: fallback data (from BrandCarousel)
+const brandArray = [];
+
+
 const DeliveryRestaurantPage = () => {
   const { cafeId } = useParams();
   const toast = useToast();
+  const navigate = useNavigate();
   const hasFetchedRef = useRef(false);
 
   const { allDeliveryRestaurants } = useSelector((state) => state.delivery);
@@ -36,7 +41,7 @@ const DeliveryRestaurantPage = () => {
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [isLoadingFood, setIsLoadingFood] = useState(true);
 
-  // Initial Data Fetch
+  // Initial data fetch
   useEffect(() => {
     if (!hasFetchedRef.current) {
       runFetchAllDeliveryThunk();
@@ -46,13 +51,30 @@ const DeliveryRestaurantPage = () => {
     }
   }, [runFetchAllDeliveryThunk, runFetchAllFoodsThunk, runGetBookmarksThunk, userId]);
 
-  // Set Restaurant Data
+  // Set restaurant data
   useEffect(() => {
-    const found = allDeliveryRestaurants.find((item) => item._id === cafeId);
-    setRestaurantData(found);
-  }, [cafeId, allDeliveryRestaurants]);
+    if (!allDeliveryRestaurants.length || !cafeId) return;
 
-  // Set Food Data
+    const found = allDeliveryRestaurants.find((item) => item._id === cafeId);
+    const fallback = brandArray.find((item) => item._id === cafeId);
+
+    if (found) {
+      setRestaurantData(found);
+    } else if (fallback) {
+      setRestaurantData(fallback);
+    } else {
+      toast({
+        title: "Restaurant not found",
+        description: "Redirecting to explore page...",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+      navigate("/explore");
+    }
+  }, [cafeId, allDeliveryRestaurants, navigate, toast]);
+
+  // Set food data
   useEffect(() => {
     if (restaurantData?.cuisine?.length && allFoodsArray.length) {
       const filteredFoods = allFoodsArray.filter((food) =>
@@ -63,7 +85,7 @@ const DeliveryRestaurantPage = () => {
     }
   }, [restaurantData, allFoodsArray]);
 
-  // Set Bookmark Status
+  // Bookmark status
   useEffect(() => {
     if (restaurantData && bookmarks) {
       const isBookmarked = bookmarks.some(
@@ -73,6 +95,7 @@ const DeliveryRestaurantPage = () => {
     }
   }, [restaurantData, bookmarks]);
 
+  // Handle bookmark toggle
   const handleBookmarkButton = () => {
     if (localStorage.getItem("token")) {
       const argument = {
@@ -96,7 +119,17 @@ const DeliveryRestaurantPage = () => {
     }
   };
 
-  // Food Rendering JSX
+  const openingStatus = getOpeningStatus();
+
+  if (!restaurantData) {
+    return (
+      <main className="flex justify-center items-center h-80">
+        <Spinner size="xl" color="red.400" thickness="5px" emptyColor="gray.200" />
+      </main>
+    );
+  }
+
+  // Render food section
   let foodJsx;
   if (isLoadingFood) {
     foodJsx = (
@@ -106,14 +139,6 @@ const DeliveryRestaurantPage = () => {
     foodJsx = <p className="text-center text-gray-400">No food items available.</p>;
   } else {
     foodJsx = foodData.map((food) => <FoodCard food={food} key={food._id} />);
-  }
-
-  if (!restaurantData) {
-    return (
-      <main className="flex justify-center items-center h-80">
-        <Spinner size="xl" color="red.400" thickness="5px" emptyColor="gray.200" />
-      </main>
-    );
   }
 
   return (
@@ -148,12 +173,12 @@ const DeliveryRestaurantPage = () => {
       <div className="flex gap-1 text-sm">
         <p
           className={
-            getOpeningStatus() === "Open now"
+            openingStatus === "Open now"
               ? "text-orange-400"
               : "text-red-500"
           }
         >
-          {getOpeningStatus()}
+          {openingStatus}
         </p>
         <p> - 10am - 11pm (Today)</p>
       </div>

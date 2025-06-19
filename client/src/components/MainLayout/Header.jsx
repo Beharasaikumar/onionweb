@@ -34,7 +34,7 @@ const Header = ({
       <Link to="/">
         <img
           src={logoBlack}
-          alt="zomato logo"
+          alt="onion logo"
           className="w-36 max-[500px]:w-24"
         />
       </Link>

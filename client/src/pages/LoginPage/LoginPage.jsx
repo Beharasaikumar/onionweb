@@ -149,7 +149,7 @@ const LoginPage = ({
           </form>
 
           <footer className="text-sm text-gray-600">
-            New to Zomato?{" "}
+            New to onion?{" "}
             <span
               onClick={handleSwitchToSignup}
               className="text-primary cursor-pointer"

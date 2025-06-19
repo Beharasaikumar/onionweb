@@ -16,7 +16,7 @@ const HomePage = () => {
     <>
       <div className="flex flex-col items-center bg-bgImage text-white pb-24 max-[500px]:pb-12">
         <SecondaryHeader />
-        <img src={logo} alt="zomato logo" className="w-96 max-[500px]:w-44" />
+        <img src={logo} alt="onion logo" className="w-96 max-[500px]:w-44" />
         <p className="text-4xl pb-6 max-[500px]:text-2xl text-center max-[500px]:px-7 max-[500px]:font-semibold">
           Discover the best food & drinks in Delhi NCR
         </p>

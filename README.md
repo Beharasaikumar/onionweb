@@ -1,10 +1,10 @@
-# 🍽️ Zomato Clone
+# 🍽️ onion Clone
 
-A full-stack Zomato clone built using the MERN stack that allows users to explore a curated list of restaurants and manage their profiles. This project focuses on a responsive user interface and seamless functionality across both mobile and desktop views.
+A full-stack onion clone built using the MERN stack that allows users to explore a curated list of restaurants and manage their profiles. This project focuses on a responsive user interface and seamless functionality across both mobile and desktop views.
 
 ## 🌐 Live Demo
 
-Explore the live demo here: [Zomato Clone](https://zomato-clone-ruby-eight.vercel.app/)
+Explore the live demo here: [onion Clone](https://onion-clone-ruby-eight.vercel.app/)
 
 ## 🎥 Demo Video
 
@@ -12,7 +12,7 @@ Watch the demostration here: [Project Video](https://drive.google.com/file/d/1Bh
 
 ## 📂 Project Overview
 
-The Zomato Clone provides users with the ability to explore various restaurants dynamically pulled from a data source, manage their profile information, and view restaurant details. This project emphasizes **full-stack development**, integrating a responsive frontend with a robust backend.
+The onion Clone provides users with the ability to explore various restaurants dynamically pulled from a data source, manage their profile information, and view restaurant details. This project emphasizes **full-stack development**, integrating a responsive frontend with a robust backend.
 
 ### Key Features
 
@@ -40,8 +40,8 @@ The Zomato Clone provides users with the ability to explore various restaurants 
 
 1. **Clone the repository**:
     ```bash
-    git clone https://github.com/bhanupm07/zomato-clone.git
-    cd zomato-clone
+    git clone https://github.com/bhanupm07/onion-clone.git
+    cd onion-clone
     ```
 
 2. **Install dependencies**:

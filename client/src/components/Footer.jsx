@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../assets/zomatoBlack.png";
+import logo from "../assets/zomatoWhite.png";
 import {
   FaLinkedinIn,
   FaInstagram,
@@ -22,7 +22,7 @@ const Footer = () => {
       <div className="flex gap-20 max-[500px]:gap-10 flex-wrap">
         <div className="flex flex-col gap-1 text-sm max-[500px]:text-xs tracking-wide">
           <h4 className="font-medium text-black tracking-widest text-base max-[500px]:text-sm mb-2">
-            ABOUT ZOMATO
+            ABOUT onion
           </h4>
           <span>Who We Are</span>
           <span>Blog</span>
@@ -36,7 +36,7 @@ const Footer = () => {
           <h4 className="font-medium text-black tracking-widest text-base max-[500px]:text-sm mb-2">
             ZOMAVERSE
           </h4>
-          <span>Zomato</span>
+          <span>onion</span>
           <span>Blinkit</span>
           <span>Feeding India</span>
           <span>Hyperpure</span>
@@ -54,7 +54,7 @@ const Footer = () => {
             <h4 className="font-medium text-black tracking-widest text-base max-[500px]:text-sm mb-2">
               FOR ENTERPRISES
             </h4>
-            <span>Zomato For Enterprise</span>
+            <span>onion For Enterprise</span>
           </div>
         </div>
         <div className="flex flex-col gap-1 text-sm max-[500px]:text-xs tracking-wide">
@@ -85,7 +85,7 @@ const Footer = () => {
       <p className="text-sm max-[500px]:text-xs tracking-wide">
         By continuing past this page, you agree to our Terms of Service, Cookie
         Policy, Privacy Policy and Content Policies. All trademarks are
-        properties of their respective owners, 2008-2024 © Zomato™ Ltd. All
+        properties of their respective owners, 2008-2024 © onion™ Ltd. All
         rights reserved.
       </p>
     </div>
